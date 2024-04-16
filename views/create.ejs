@@ -1,0 +1,31 @@
+<%- include("partials/header.ejs") %>
+
+<section class="create container pt-5">
+
+    <div class="col-md-8 bg-body-secondary mt-5">
+        
+        <form action="/save" method="POST">
+            <label for="fname">Title:</label><br>
+            <input type="text" name="title">
+            <br>
+            <label for="lname">Content:</label><br>
+            <input type="text" name="content">
+            <button type="submit">Create</button>
+        </form>
+          
+    </div>
+
+      <div class=" row col-md-4 bg-body-secondary mt-5">
+        <div style="top: 2rem;">
+        
+          <div class="p-4 mb-3 bg-body-tertiary rounded">
+            <p>We welcome you to write about your experiences
+                with your favorite artists and how they have affected your life. Please take your time and vent as needed 💗
+            </p>
+          </div>
+        </div>    
+      </div>
+
+</section>
+
+<%- include("partials/footer.ejs") %>

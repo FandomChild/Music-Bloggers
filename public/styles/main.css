@@ -1,0 +1,14 @@
+body {
+    background-color: aqua !important;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
