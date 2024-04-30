@@ -35,7 +35,7 @@ app.get("/posts/:id", (req, res) => {
     const post = blog.find((pst) => pst.id === id);
     if (!post) return res.status(404).json({ message: "Post not found" });
     res.json(post);
-  });
+});
 
 app.patch("/posts/:id", (req, res) => {
     console.log(req.params.id);
@@ -48,6 +48,16 @@ app.patch("/posts/:id", (req, res) => {
     if (req.body.content) post.content = req.body.content;
 
     res.json(post);
+});
+
+app.delete("/delete/:id", (req, res) => {
+    const indx = blog.findIndex((post) => post.id === parseInt(req.params.id));
+    if (indx > -1) {
+      blog.splice(indx, 1);
+      res.sendStatus(200);
+    } else {
+      return res.status(404).json({error: "Post not found"});
+    };
 });
 
 

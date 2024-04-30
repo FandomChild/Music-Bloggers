@@ -45,7 +45,7 @@ app.get("/create", (req, res) => {
 app.post("/save", async (req, res) => {
   try {
     const result = await axios.post(`${URL}/save`, req.body);
-    console.log(result.data)
+    console.log(result.data);
     res.redirect("/posts");
   } catch (error) {
     res.status(500).json({ message: "Error creating post"});
@@ -53,7 +53,6 @@ app.post("/save", async (req, res) => {
 });
 
 app.get("/edit/:id", async (req, res) => {
-  console.log(req.params.id);
   try {
     const result = await axios.get(`${URL}/posts/${req.params.id}`);
     console.log(result.data);
@@ -80,7 +79,16 @@ app.post("/save/:id", async (req, res) => {
   }
 });
 
+app.get("/delete/:id", async (req, res) => {
+  try {
+    await axios.delete(`${URL}/delete/${req.params.id}`);
+    res.redirect("/posts");
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting post" });
+  }
+});
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
-  });
+});
 
