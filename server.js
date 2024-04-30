@@ -10,80 +10,75 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// function Create(title, content) {
-//   this.titleP = title;
-//   this.dateND = new Date();
-//   this.dateP = this.dateND.toLocaleString();
-//   this.contentP = content;
-// }
-
-// function newPost(title, content) {
-//   let bpost = new Create(title, content);
-//   blog.push(bpost);
-//   blog.reverse();
-//   titles.push(title);
-//   titles.reverse();
-// }
-
 app.get("/", (req, res) => {
     res.render("index.ejs");
 });
 
 app.post("/submit", async (req, res) => {
   try {
-    const response = await axios.get(`${URL}/submit`);
-    const randomArtist = response.data[Math.floor(Math.random() * artists.length)];
+    const result = await axios.get(`${URL}/submit`);
+    const randomArtist = result.data[Math.floor(Math.random() * result.data.length)];
     res.render("index.ejs", {
       artist: randomArtist
     });
   } catch (error) {
     res.status(500).json({ message: "Error fetching posts" });
   }
-
 });
 
 app.get("/posts", async (req, res) => {
 
   try {
-    const response = await axios.get(`${URL}/posts`);
+    const result = await axios.get(`${URL}/posts`);
     res.render("posts.ejs", {
-      blogs: response.data,
-      artist: null
+      blogs: result.data,
     });
   } catch (error) {
     res.status(500).json({ message: "Error fetching posts" });
   }
 });
 
-// app.post("/edit", (req, res) => {
-//   res.render("edit.ejs");
-//   console.log(req.body)
-// });
+app.get("/create", (req, res) => {
+    res.render("create.ejs");
+});
+
+app.post("/save", async (req, res) => {
+  try {
+    const result = await axios.post(`${URL}/save`, req.body);
+    console.log(result.data)
+    res.redirect("/posts");
+  } catch (error) {
+    res.status(500).json({ message: "Error creating post"});
+  }
+});
+
+app.get("/edit/:id", async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const result = await axios.get(`${URL}/posts/${req.params.id}`);
+    console.log(result.data);
+    res.render("create.ejs", {
+      post: result.data
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating post" });
+  }
+});
 
 
-// app.get("/posts", (req, res) => {
-    
-//     res.render("posts.ejs", {
-
-//         blogs: blog,
-//         titles: titles,
-//     });
-// });
-
-// app.get("/create", (req, res) => {
-//     res.render("create.ejs");
-// });
-
-// app.post("/save", (req, res) => {
-//   let title = req.body["title"]
-//   let content = req.body["content"];
-//   newPost(title, content);
-//   res.render("posts.ejs", {
-//     blogs: blog,
-//     titles: titles,
-//   });
-
-// });
+app.post("/save/:id", async (req, res) => {
+  console.log("called");
+  try {
+    const response = await axios.patch(
+      `${URL}/posts/${req.params.id}`,
+      req.body
+    );
+    console.log(response.data);
+    res.redirect("/posts");
+  } catch (error) {
+    res.status(500).json({ message: "Error updating post" });
+  }
+});
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

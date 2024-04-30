@@ -14,14 +14,34 @@
             <p>
               <%= blogs[i]['content'] %>
             </p>
-            <form action="/edit" method="POST"></form>
-              <button type="submit">Edit</button>
-            </form>
+            <a class="edit" href="/edit/<%= blogs[i]['id'] %>">Edit</a>
           </article>
         <% } %>
       <% } %>
   </div>
 
+  <div class=" row col-md-4 bg-body-secondary mt-5">
+    <div style="top: 2rem;">             
+      <div class="p-4 mb-3 bg-body-tertiary rounded">
+        <img src="static/5sos.jpg" class="d-block mx-lg-auto img-fluid" alt="gojo" width="300" height="300" loading="lazy">
+      </div>
+      <div class="p-4 mb-3 bg-body-tertiary rounded">
+        <img src="static/bts.jpg" class="d-block mx-lg-auto img-fluid" alt="gojo" width="300" height="300" loading="lazy">
+      </div>
+      <div class="p-4 mb-3 bg-body-tertiary rounded">
+        <img src="static/army.jpg" class="d-block mx-lg-auto img-fluid" alt="gojo" width="300" height="300" loading="lazy">
+      </div>
+      <div class="p-4 mb-3 bg-body-tertiary rounded">
+        <img src="static/beyonce.jpg" class="d-block mx-lg-auto img-fluid" alt="gojo" width="300" height="300" loading="lazy">
+      </div>
+      <div class="p-4 mb-3 bg-body-tertiary rounded">
+        <img src="static/rhcp.jpg" class="d-block mx-lg-auto img-fluid" alt="gojo" width="300" height="300" loading="lazy">
+      </div>
+      <div class="p-4 mb-3 bg-body-tertiary rounded">
+        <img src="static/blink.jpg" class="d-block mx-lg-auto img-fluid" alt="gojo" width="300" height="300" loading="lazy">
+      </div>
+    </div>    
+  </div>
 
 </section>
 <%- include("partials/footer.ejs") %>
