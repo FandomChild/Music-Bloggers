@@ -7,5 +7,5 @@ A blogging website for music lovers to vent about their experiences regarding th
 1. Clone the repository.
 2. Navigate to the project directory.
 3. Install dependencies using `npm install`
-4. Run the project using `nodemon index.js`.
+4. Run the project using `nodemon index.js` in one terminal. Open another terminal and run "nodemon server.js".
 5. Access the application at `http://localhost:3000`.
