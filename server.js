@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 
+
+// complete consts and app.use
 const app = express();
 const port = 3000;
 const URL = "http://localhost:4000";
@@ -10,10 +12,12 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// renders index pg, no API content
 app.get("/", (req, res) => {
     res.render("index.ejs");
 });
 
+// requests random artist from API
 app.post("/submit", async (req, res) => {
   try {
     const result = await axios.get(`${URL}/submit`);
@@ -26,6 +30,7 @@ app.post("/submit", async (req, res) => {
   }
 });
 
+// requests posts from API
 app.get("/posts", async (req, res) => {
 
   try {
@@ -38,10 +43,12 @@ app.get("/posts", async (req, res) => {
   }
 });
 
+// renders post creation page
 app.get("/create", (req, res) => {
     res.render("create.ejs");
 });
 
+// passes in body info to save to API
 app.post("/save", async (req, res) => {
   try {
     const result = await axios.post(`${URL}/save`, req.body);
@@ -52,6 +59,7 @@ app.post("/save", async (req, res) => {
   }
 });
 
+// makes get request to API to edit a post by id then renders the create page to edit text
 app.get("/edit/:id", async (req, res) => {
   try {
     const result = await axios.get(`${URL}/posts/${req.params.id}`);
@@ -64,7 +72,7 @@ app.get("/edit/:id", async (req, res) => {
   }
 });
 
-
+// makes patch request to API and sends over changes through body, receives then redirects to posts
 app.post("/save/:id", async (req, res) => {
   console.log("called");
   try {
@@ -79,6 +87,7 @@ app.post("/save/:id", async (req, res) => {
   }
 });
 
+// makes delete request to API then redirects to posts
 app.get("/delete/:id", async (req, res) => {
   try {
     await axios.delete(`${URL}/delete/${req.params.id}`);

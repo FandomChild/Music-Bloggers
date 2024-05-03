@@ -2,7 +2,7 @@
 
 <section class="set">
   <div class="create container py-5">
-    <div class="blog col-md-8 rounded px-3">
+    <div class="blog col-6 col-sm-6 col-md-8 col-lg-8 col-xl-8 px-3">
       <% if (locals.post) { %>
         <form action="/save/<%= post.id %>" method="POST">
           <label for="fname" class="mt-3 label">Title:</label><br>
@@ -10,7 +10,7 @@
           <br>
           <label for="lname" class="mt-3 label">Content:</label><br>
           <textarea name="content" rows="10" class="mt-1"><%=post.content %></textarea>
-          <button type="submit" class="rounded my-3">Create</button>
+          <button type="submit" class="rounded my-3">Update</button>
         </form>
       <% } else { %>
         <form action="/save" method="POST">
@@ -24,7 +24,7 @@
       <% } %>      
     </div>
 
-    <div class="blog row col-md-4 rounded">
+    <div class="blog row col-6 col-sm-6 col-md-4 col-lg-4 col-xl-4 rounded">
       <div style="top: 2rem;">
         <div class="inset p-4 mb-3 rounded">
           <p>We welcome you to write about your experiences

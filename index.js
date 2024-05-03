@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 
-
+// complete consts and app.use
 const app = express();
 const port = 4000;
 var lastId = 3;
@@ -9,14 +9,17 @@ var lastId = 3;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// sends over artist data
 app.get("/submit", (req, res) => {
     res.json(artists);
 });
 
+// sends over blog data
 app.get("/posts", (req, res) => {
     res.json(blog);
 });
 
+// receives body info then creates a post, adds to existing API and sends back the created post
 app.post("/save", (req, res) => {
     lastId++;
     const post = {
@@ -30,6 +33,7 @@ app.post("/save", (req, res) => {
     res.json(post);
 });
 
+//receives id info and returns the requested post by id
 app.get("/posts/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const post = blog.find((pst) => pst.id === id);
@@ -37,6 +41,7 @@ app.get("/posts/:id", (req, res) => {
     res.json(post);
 });
 
+// receives patch request and updates existing post and returns edited post
 app.patch("/posts/:id", (req, res) => {
     console.log(req.params.id);
     const id = parseInt(req.params.id);
@@ -50,6 +55,7 @@ app.patch("/posts/:id", (req, res) => {
     res.json(post);
 });
 
+// receives delete request, deletes post from API and returns a status
 app.delete("/delete/:id", (req, res) => {
     const indx = blog.findIndex((post) => post.id === parseInt(req.params.id));
     if (indx > -1) {
